@@ -1,13 +1,25 @@
-<!DOCTYPE html><html lang="id"><head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Cek Antrian - Puskesmas Sehat Bersama</title>
 <script src="https://cdn.tailwindcss.com"></script>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <style>body{font-family:'Poppins',sans-serif}</style>
-</head><body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
+</head>
+<body class="bg-gray-50 min-h-screen flex items-center justify-center p-4">
 <div class="bg-white w-full max-w-md p-8 rounded-3xl shadow-xl text-center">
+  <a href="index.html" class="absolute top-4 left-4 text-gray-500 hover:text-blue-600 transition">
+    <i class="fa-solid fa-house text-xl"></i>
+  </a>
+
   <h1 class="text-2xl font-bold text-blue-600 mb-6">Cek Posisi Antrian</h1>
-  <div id="loading">Memuat data...</div>
+  <div id="loading">
+    <i class="fa-solid fa-spinner fa-spin text-3xl text-blue-600 mb-3"></i>
+    <p class="text-gray-500">Memuat data...</p>
+  </div>
 
   <div id="hasil" class="hidden">
     <p class="text-gray-600">Halo, <span id="nama" class="font-bold"></span></p>
@@ -17,45 +29,74 @@
       <div class="text-lg font-bold" id="statusText">MENUNGGU</div>
       <div class="text-4xl font-black mt-2">Posisi: <span id="posisi">1</span></div>
       <div class="mt-2">Estimasi dipanggil: <span id="estimasi" class="font-bold">10:30</span></div>
+      <div id="loket" class="mt-2 text-sm"></div>
     </div>
 
-    <p class="text-sm text-gray-500">Status update otomatis setiap 10 detik</p>
-    <a href="index.html" class="block mt-6 text-blue-600 font-semibold">← Kembali ke Beranda</a>
+    <p class="text-sm text-gray-500"><i class="fa-solid fa-arrows-rotate mr-1"></i>Update otomatis setiap 10 detik</p>
+    <a href="index.html" class="inline-block mt-6 bg-gray-100 hover:bg-gray-200 text-gray-700 px-5 py-2 rounded-xl font-semibold transition">
+      <i class="fa-solid fa-house mr-2"></i>Kembali ke Beranda
+    </a>
   </div>
 
-  <div id="error" class="hidden text-red-600">Nomor antrian tidak ditemukan</div>
+  <div id="error" class="hidden">
+    <i class="fa-solid fa-circle-exclamation text-5xl text-red-500 mb-4"></i>
+    <p class="text-red-600 font-semibold">Nomor antrian tidak ditemukan</p>
+    <p class="text-gray-500 text-sm mt-2">Pastikan URL sudah benar atau ambil antrian baru</p>
+  </div>
 </div>
 
 <script>
-const API = "https://script.google.com/macros/s/AKfycbzM6D735ryPazkudEqGZO0lF7mx-gotvyiiQ7neMMH52s3wtVm7yodTz_-WNHCvdWyVhQ/exec?action=";
+const API = "https://script.google.com/macros/s/AKfycbzM6D735ryPazkudEqGZO0lF7mx-gotvyiiQ7neMMH52s3wtVm7yodTz_-WNHCvdWyVhQ/exec";
 const no = new URLSearchParams(location.search).get('no');
 
 async function cek() {
-  if(!no) return document.getElementById('error').classList.remove('hidden');
-  const r = await fetch(`${API}cek&no=${no}`);
-  const d = await r.json();
+  if(!no) {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('error').classList.remove('hidden');
+    return;
+  }
 
-  document.getElementById('loading').classList.add('hidden');
-  if(d.status !== 'ok') return document.getElementById('error').classList.remove('hidden');
+  try {
+    const res = await fetch(API, {
+      method: 'POST',
+      body: JSON.stringify({ action: 'cekAntrian', noAntrian: no })
+    });
+    const d = await res.json();
 
-  document.getElementById('hasil').classList.remove('hidden');
-  document.getElementById('nama').textContent = d.data.Nama;
-  document.getElementById('nomor').textContent = d.data.No_Antrian;
-  document.getElementById('posisi').textContent = d.posisi;
-  document.getElementById('estimasi').textContent = d.estimasi;
+    document.getElementById('loading').classList.add('hidden');
+    if(d.status!== 'ok') {
+      document.getElementById('error').classList.remove('hidden');
+      return;
+    }
 
-  const box = document.getElementById('statusBox');
-  const st = d.data.Status;
-  if(st === 'dipanggil') {
-    box.className = 'p-6 rounded-2xl my-6 bg-green-100 text-green-800';
-    document.getElementById('statusText').textContent = 'GILIRAN ANDA! Ke ' + d.data.Loket;
-  } else if(st === 'selesai') {
-    box.className = 'p-6 rounded-2xl my-6 bg-gray-100 text-gray-800';
-    document.getElementById('statusText').textContent = 'SELESAI';
-  } else {
-    box.className = 'p-6 rounded-2xl my-6 bg-yellow-100 text-yellow-800';
-    document.getElementById('statusText').textContent = 'MENUNGGU';
+    document.getElementById('hasil').classList.remove('hidden');
+    document.getElementById('nama').textContent = d.data.Nama;
+    document.getElementById('nomor').textContent = d.data.No_Antrian;
+    document.getElementById('posisi').textContent = d.posisi;
+    document.getElementById('estimasi').textContent = d.estimasi;
+
+    const box = document.getElementById('statusBox');
+    const st = d.data.Status;
+    const loketDiv = document.getElementById('loket');
+
+    if(st === 'Dipanggil') {
+      box.className = 'p-6 rounded-2xl my-6 bg-green-100 text-green-800 animate-pulse';
+      document.getElementById('statusText').innerHTML = '<i class="fa-solid fa-bullhorn mr-2"></i>GILIRAN ANDA!';
+      loketDiv.innerHTML = `<b>Segera ke ${d.data.Loket || 'Loket'}</b>`;
+    } else if(st === 'Selesai') {
+      box.className = 'p-6 rounded-2xl my-6 bg-gray-100 text-gray-800';
+      document.getElementById('statusText').innerHTML = '<i class="fa-solid fa-circle-check mr-2"></i>SELESAI';
+      loketDiv.innerHTML = 'Terima kasih sudah berkunjung';
+    } else {
+      box.className = 'p-6 rounded-2xl my-6 bg-yellow-100 text-yellow-800';
+      document.getElementById('statusText').innerHTML = '<i class="fa-solid fa-hourglass-half mr-2"></i>MENUNGGU';
+      loketDiv.innerHTML = `Mohon menunggu ${d.posisi} antrian lagi`;
+    }
+  } catch(err) {
+    document.getElementById('loading').classList.add('hidden');
+    document.getElementById('error').classList.remove('hidden');
   }
 }
-cek(); setInterval(cek, 10000);
+cek();
+setInterval(cek, 10000);
 </script></body></html>
