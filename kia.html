@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poli KIA/KB - Puskesmas Sehat Bersama</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    
+    header { background: white; box-shadow: 0 1px 3px #0001; position: sticky; top: 0; z-index: 9999; }
+    .nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #047857; text-decoration: none; }
+    .logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-links { display: flex; gap: 25px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #475569; font-weight: 500; transition: 0.2s; }
+    .nav-links a:hover { color: #047857; }
+    
+    .nav-links a, .dropdown-btn { font-size: 0.875rem !important; font-weight: 500; }
+    .dropdown-btn { background: none; border: none; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: inherit; padding: 0; }
+    .dropdown { position: relative; padding-bottom: 20px; margin-bottom: -20px; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 180px; box-shadow: 0 8px 16px #0002; border-radius: 8px; z-index: 10000; padding: 8px 0; margin-top: 0; }
+    .dropdown-content a { color: #475569; padding: 8px 16px; text-decoration: none; display: block; font-size: 0.8125rem !important; font-weight: 400; }
+    .dropdown-content a:hover { background: #f1f5f9; color: #047857; }
+    .dropdown:hover .dropdown-content, .dropdown-content:hover { display: block; }
+    
+    .mobile-btn { display: none; background: none; border: none; font-size: 1.5rem; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 20px; box-shadow: 0 4px 6px #0001; gap: 15px; align-items: start; }
+      .nav-links.show { display: flex; }
+      .mobile-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Logo Puskesmas Sehat Bersama">
+        <div>PUSKESMAS SEHAT BERSAMA</div>
+      </a>
+      
+      <nav class="nav-links" id="nav-menu">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+          <button class="dropdown-btn">Profil </button>
+          <div class="dropdown-content">
+            <a href="visi-misi.html">Visi & Misi</a>
+            <a href="sejarah.html">Sejarah</a>
+            <a href="struktur.html">Struktur Organisasi</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropdown-btn">Layanan </button>
+          <div class="dropdown-content">
+            <a href="poli-umum.html">Poli Umum</a>
+            <a href="poli-gigi.html">Poli Gigi</a>
+            <a href="kia.html" style="color:#047857;font-weight:600;">KIA/KB</a>
+            <a href="daftar.html">Daftar Online</a>
+          </div>
+        </div>
+        <a href="login.html" style="background:#86efac;color:#065f46;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Login</a>
+      </nav>
+      <button class="mobile-btn" id="mobile-btn">☰</button>
+    </div>
+  </header>
+
+  <main class="container py-12">
+    <div data-aos="fade-up">
+      <div class="flex items-center gap-3 mb-6">
+        <i class="fa-solid fa-baby text-4xl text-pink-600"></i>
+        <h1 class="text-3xl font-bold text-teal-700">Poli KIA / KB</h1>
+      </div>
+      <p class="text-gray-600 mb-8">Kesehatan Ibu Anak & Keluarga Berencana - Melayani ibu hamil, bayi, balita, dan pasangan usia subur</p>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fa-solid fa-clock text-3xl text-pink-600 mb-3"></i>
+        <h3 class="font-bold text-lg mb-2">Jam Pelayanan</h3>
+        <p class="text-gray-600">Senin - Kamis<br><b>07:30 - 12:00 WIB</b></p>
+        <p class="text-gray-600 mt-2">Jumat<br><b>07:30 - 10:30 WIB</b></p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="300">
+        <i class="fa-solid fa-user-nurse text-3xl text-pink-600 mb-3"></i>
+        <h3 class="font-bold text-lg mb-2">Petugas KIA</h3>
+        <p class="text-gray-600">Bidan Desa</p>
+        <p class="text-sm text-gray-500 mt-1">Bd. Sinta Lestari, A.Md.Keb</p>
+        <p class="text-sm text-gray-500">Bd. Rina Anggraini, A.Md.Keb</p>
+      </div>
+      <div class="bg-gradient-to-br from-pink-600 to-pink-700 p-6 rounded-xl shadow-md text-white hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="400">
+        <h3 class="font-bold text-lg mb-2">Daftar KIA/KB</h3>
+        <p class="text-sm mb-4 opacity-90">Periksa kehamilan & pasang KB gratis!</p>
+        <a href="daftar.html" class="bg-white text-pink-600 px-5 py-2.5 rounded-lg font-semibold inline-block hover:bg-gray-100 transition">Daftar Sekarang →</a>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-3 gap-8 mb-8">
+      <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-right">
+        <h2 class="text-xl font-bold mb-6 text-teal-700 flex items-center gap-2">
+          <i class="fa-solid fa-person-pregnant"></i> Ibu Hamil
+        </h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pemeriksaan kehamilan/ANC</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>USG dasar</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Cek lab: HB, golongan darah</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pemberian tablet tambah darah</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Imunisasi TT ibu hamil</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Kelas ibu hamil</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Konseling persiapan persalinan</span></div>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-up">
+        <h2 class="text-xl font-bold mb-6 text-teal-700 flex items-center gap-2">
+          <i class="fa-solid fa-baby"></i> Bayi & Balita
+        </h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Imunisasi dasar lengkap</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Timbang berat & ukur tinggi</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pemantauan tumbuh kembang</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pemberian Vitamin A</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>SDIDTK - Stimulasi dini</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Konseling ASI eksklusif</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>MTBS - Balita sakit</span></div>
+        </div>
+      </div>
+
+      <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-left">
+        <h2 class="text-xl font-bold mb-6 text-teal-700 flex items-center gap-2">
+          <i class="fa-solid fa-venus-mars"></i> Keluarga Berencana
+        </h2>
+        <div class="space-y-3 text-sm">
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Konseling KB</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pil KB</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Suntik KB 1 & 3 bulan</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pasang & lepas IUD</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pasang & lepas Implan</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Kondom</span></div>
+          <div class="flex items-start gap-2"><i class="fa-solid fa-check text-teal-600 mt-0.5"></i><span>Pemeriksaan IVA Test</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-gradient-to-r from-pink-50 to-purple-50 p-8 rounded-xl shadow-md" data-aos="fade-up">
+      <h2 class="text-2xl font-bold mb-6 text-pink-700 flex items-center gap-2">
+        <i class="fa-solid fa-calendar-days"></i> Jadwal Khusus
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-white p-5 rounded-lg">
+          <h3 class="font-bold mb-3 text-teal-700">Imunisasi Bayi/Balita</h3>
+          <p class="text-gray-700"><b>Setiap Rabu</b></p>
+          <p class="text-sm text-gray-600">Pukul 08:00 - 11:00 WIB</p>
+          <p class="text-xs text-gray-500 mt-2">*Bawa buku KIA/KMS</p>
+        </div>
+        <div class="bg-white p-5 rounded-lg">
+          <h3 class="font-bold mb-3 text-teal-700">Kelas Ibu Hamil</h3>
+          <p class="text-gray-700"><b>Jumat Minggu ke-2 & 4</b></p>
+          <p class="text-sm text-gray-600">Pukul 09:00 - 11:00 WIB</p>
+          <p class="text-xs text-gray-500 mt-2">*Gratis + snack</p>
+        </div>
+        <div class="bg-white p-5 rounded-lg">
+          <h3 class="font-bold mb-3 text-teal-700">Pemasangan IUD/Implan</h3>
+          <p class="text-gray-700"><b>Senin & Kamis</b></p>
+          <p class="text-sm text-gray-600">Dengan perjanjian</p>
+          <p class="text-xs text-gray-500 mt-2">*Daftar dulu via WA</p>
+        </div>
+        <div class="bg-white p-5 rounded-lg">
+          <h3 class="font-bold mb-3 text-teal-700">Posyandu Balita</h3>
+          <p class="text-gray-700"><b>Lihat jadwal desa</b></p>
+          <p class="text-sm text-gray-600">Tiap posyandu beda tanggal</p>
+          <p class="text-xs text-gray-500 mt-2">*Timbang + imunisasi</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-blue-50 p-6 rounded-xl mt-8 border border-blue-200" data-aos="fade-up">
+      <h3 class="font-bold text-blue-900 mb-3"><i class="fa-solid fa-circle-info mr-2"></i>Yang Perlu Dibawa:</h3>
+      <div class="grid md:grid-cols-2 gap-4 text-sm text-blue-800">
+        <div>
+          <b>Ibu Hamil:</b>
+          <ul class="ml-4 mt-1">
+            <li>• Buku KIA warna pink</li>
+            <li>• KTP + Kartu BPJS</li>
+            <li>• Hasil lab sebelumnya</li>
+          </ul>
+        </div>
+        <div>
+          <b>Bayi/Balita:</b>
+          <ul class="ml-4 mt-1">
+            <li>• Buku KIA/KMS</li>
+            <li>• Kartu BPJS anak</li>
+            <li>• Surat kelahiran - untuk bayi baru</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-100 py-8 mt-12">
+    <div class="container text-center text-gray-600 text-sm">
+      <p>© 2026 Puskesmas Sehat Bersama | Poli KIA/KB</p>
+    </div>
+  </footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ duration: 800, once: true });
+document.getElementById('mobile-btn').addEventListener('click', function() {
+  document.getElementById('nav-menu').classList.toggle('show');
+});
+</script>
+</body>
+</html>
