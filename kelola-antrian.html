@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kelola Antrian - Puskesmas Sehat Bersama</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; color: #1e293b; }
+   .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+    header { background: white; box-shadow: 0 1px 3px #0001; position: sticky; top: 0; z-index: 9999; }
+   .nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+   .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #047857; text-decoration: none; }
+   .logo img { width: 40px; height: 40px; object-fit: contain; }
+   .nav-links { display: flex; gap: 25px; align-items: center; }
+   .nav-links a { text-decoration: none; color: #475569; font-weight: 500; transition: 0.2s; }
+   .nav-links a:hover { color: #047857; }
+
+   .nav-links a,.dropdown-btn { font-size: 0.875rem!important; font-weight: 500; }
+   .dropdown-btn { background: none; border: none; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: inherit; padding: 0; }
+   .dropdown { position: relative; padding-bottom: 20px; margin-bottom: -20px; }
+   .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 180px; box-shadow: 0 8px 16px #0002; border-radius: 8px; z-index: 10000; padding: 8px 0; margin-top: 0; }
+   .dropdown-content a { color: #475569; padding: 8px 16px; text-decoration: none; display: block; font-size: 0.8125rem!important; font-weight: 400; }
+   .dropdown-content a:hover { background: #f1f5f9; color: #047857; }
+   .dropdown:hover.dropdown-content,.dropdown-content:hover { display: block; }
+
+   .mobile-btn { display: none; background: none; border: none; font-size: 1.5rem; }
+    @media (max-width: 768px) {
+     .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 20px; box-shadow: 0 4px 6px #0001; gap: 15px; align-items: start; }
+     .nav-links.show { display: flex; }
+     .mobile-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Logo Puskesmas Sehat Bersama">
+        <div>PUSKESMAS SEHAT BERSAMA</div>
+      </a>
+
+      <nav class="nav-links" id="nav-menu">
+        <a href="dashboard-admin.html">Dashboard</a>
+        <div class="dropdown">
+          <button class="dropdown-btn" style="color:#047857;font-weight:600;">Kelola Data </button>
+          <div class="dropdown-content">
+            <a href="kelola-pasien.html">Data Pasien</a>
+            <a href="kelola-antrian.html" style="color:#047857;font-weight:600;">Antrian</a>
+            <a href="kelola-dokter.html">Jadwal Dokter</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropdown-btn">Laporan </button>
+          <div class="dropdown-content">
+            <a href="laporan-harian.html">Laporan Harian</a>
+            <a href="laporan-bulanan.html">Laporan Bulanan</a>
+          </div>
+        </div>
+        <div class="flex items-center gap-3">
+          <div class="text-right hidden md:block">
+            <p class="text-sm font-medium">drg. Maya Putri</p>
+            <p class="text-xs text-amber-600">Admin Puskesmas</p>
+          </div>
+          <a href="login.html" class="bg-red-100 text-red-700 hover:bg-red-200 px-3 py-2 rounded-lg text-sm font-medium transition">
+            <i class="fa-solid fa-right-from-bracket"></i> Logout
+          </a>
+        </div>
+      </nav>
+      <button class="mobile-btn" id="mobile-btn">☰</button>
+    </div>
+  </header>
+
+  <main class="container py-8">
+    <!-- Header -->
+    <div class="mb-6">
+      <div class="flex items-center gap-3 mb-2">
+        <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain">
+        <h1 class="text-2xl font-bold text-teal-700">Kelola Antrian</h1>
+      </div>
+      <p class="text-gray-600">Panggil pasien dan update status antrian real-time</p>
+    </div>
+
+    <!-- Antrian Dipanggil Sekarang -->
+    <div class="bg-gradient-to-r from-teal-600 to-teal-700 text-white p-6 rounded-xl shadow-lg mb-6">
+      <p class="text-sm opacity-90 mb-1">Sedang Dipanggil:</p>
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-4xl font-bold" id="nomorDipanggil">A-032</p>
+          <p class="text-lg mt-1" id="namaDipanggil">Budi Santoso - Poli Umum</p>
+        </div>
+        <button onclick="selesaiAntrian()" class="bg-white text-teal-700 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold transition">
+          <i class="fa-solid fa-check"></i> Tandai Selesai
+        </button>
+      </div>
+    </div>
+
+    <!-- Filter & Statistik Mini -->
+    <div class="grid md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Total Antrian</p>
+        <p class="text-2xl font-bold text-blue-600">47</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Menunggu</p>
+        <p class="text-2xl font-bold text-amber-600">15</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <p class="text-sm text-gray-600">Selesai</p>
+        <p class="text-2xl font-bold text-green-600">32</p>
+      </div>
+      <div class="bg-white p-4 rounded-lg shadow">
+        <label class="text-sm text-gray-600 block mb-1">Filter Poli</label>
+        <select id="filterPoli" class="w-full border rounded px-2 py-1 text-sm focus:ring-2 focus:ring-teal-500">
+          <option value="semua">Semua Poli</option>
+          <option value="umum">Poli Umum</option>
+          <option value="gigi">Poli Gigi</option>
+          <option value="kia">KIA/KB</option>
+          <option value="lab">Lab</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- Tabel Antrian -->
+    <div class="bg-white rounded-xl shadow-md overflow-hidden">
+      <div class="p-4 border-b bg-gray-50">
+        <h2 class="font-bold text-gray-800">Daftar Antrian Hari Ini</h2>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="w-full text-sm">
+          <thead class="bg-gray-50">
+            <tr class="text-left text-gray-600">
+              <th class="px-4 py-3">No. Antrian</th>
+              <th class="px-4 py-3">Nama Pasien</th>
+              <th class="px-4 py-3">NIK</th>
+              <th class="px-4 py-3">Poli</th>
+              <th class="px-4 py-3">Jam Daftar</th>
+              <th class="px-4 py-3">Status</th>
+              <th class="px-4 py-3 text-center">Aksi</th>
+            </tr>
+          </thead>
+          <tbody id="tabelAntrian">
+            <tr class="border-b hover:bg-gray-50" data-poli="umum">
+              <td class="px-4 py-3 font-bold text-teal-600">A-032</td>
+              <td class="px-4 py-3">Budi Santoso</td>
+              <td class="px-4 py-3 text-gray-600">3201011201900001</td>
+              <td class="px-4 py-3">Poli Umum</td>
+              <td class="px-4 py-3">08:12</td>
+              <td class="px-4 py-3"><span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">Dipanggil</span></td>
+              <td class="px-4 py-3 text-center">
+                <button onclick="selesaiAntrian('A-032')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs"><i class="fa-solid fa-check"></i> Selesai</button>
+              </td>
+            </tr>
+            <tr class="border-b hover:bg-gray-50" data-poli="gigi">
+              <td class="px-4 py-3 font-bold text-teal-600">A-033</td>
+              <td class="px-4 py-3">Siti Aminah</td>
+              <td class="px-4 py-3 text-gray-600">3201016502870002</td>
+              <td class="px-4 py-3">Poli Gigi</td>
+              <td class="px-4 py-3">08:15</td>
+              <td class="px-4 py-3"><span class="bg-amber-100 text-amber-700 px-2 py-1 rounded text-xs">Menunggu</span></td>
+              <td class="px-4 py-3 text-center">
+                <button onclick="panggilAntrian('A-033','Siti Aminah','Poli Gigi')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs"><i class="fa-solid fa-bullhorn"></i> Panggil</button>
+              </td>
+            </tr>
+            <tr class="border-b hover:bg-gray-50" data-poli="kia">
+              <td class="px-4 py-3 font-bold text-teal-600">B-012</td>
+              <td class="px-4 py-3">Dewi Lestari</td>
+              <td class="px-4 py-3 text-gray-600">3201014502920003</td>
+              <td class="px-4 py-3">KIA/KB</td>
+              <td class="px-4 py-3">08:20</td>
+              <td class="px-4 py-3"><span class="bg-amber-100 text-amber-700 px-2 py-1 rounded text-xs">Menunggu</span></td>
+              <td class="px-4 py-3 text-center">
+                <button onclick="panggilAntrian('B-012','Dewi Lestari','KIA/KB')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs"><i class="fa-solid fa-bullhorn"></i> Panggil</button>
+              </td>
+            </tr>
+            <tr class="border-b hover:bg-gray-50" data-poli="umum">
+              <td class="px-4 py-3 font-bold text-teal-600">A-034</td>
+              <td class="px-4 py-3">Agus Setiawan</td>
+              <td class="px-4 py-3 text-gray-600">3201011103850004</td>
+              <td class="px-4 py-3">Poli Umum</td>
+              <td class="px-4 py-3">08:25</td>
+              <td class="px-4 py-3"><span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">Terdaftar</span></td>
+              <td class="px-4 py-3 text-center">
+                <button onclick="panggilAntrian('A-034','Agus Setiawan','Poli Umum')" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-xs"><i class="fa-solid fa-bullhorn"></i> Panggil</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+<script>
+document.getElementById('mobile-btn').addEventListener('click', function() {
+  document.getElementById('nav-menu').classList.toggle('show');
+});
+
+// Filter poli
+document.getElementById('filterPoli').addEventListener('change', function() {
+  const poli = this.value;
+  const rows = document.querySelectorAll('#tabelAntrian tr');
+  rows.forEach(row => {
+    if (poli === 'semua' || row.dataset.poli === poli) {
+      row.style.display = '';
+    } else {
+      row.style.display = 'none';
+    }
+  });
+});
+
+function panggilAntrian(no, nama, poli) {
+  document.getElementById('nomorDipanggil').textContent = no;
+  document.getElementById('namaDipanggil').textContent = nama + ' - ' + poli;
+
+  // Update status di tabel
+  const rows = document.querySelectorAll('#tabelAntrian tr');
+  rows.forEach(row => {
+    if (row.cells[0].textContent === no) {
+      row.cells[5].innerHTML = '<span class="bg-blue-100 text-blue-700 px-2 py-1 rounded text-xs">Dipanggil</span>';
+      row.cells[6].innerHTML = '<button onclick="selesaiAntrian(\''+no+'\')" class="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-xs"><i class="fa-solid fa-check"></i> Selesai</button>';
+    } else if (row.cells[5].textContent.includes('Dipanggil')) {
+      row.cells[5].innerHTML = '<span class="bg-gray-100 text-gray-700 px-2 py-1 rounded text-xs">Terlewat</span>';
+    }
+  });
+
+  alert('Memanggil: ' + no + ' - ' + nama);
+}
+
+function selesaiAntrian(no = null) {
+  const nomor = no || document.getElementById('nomorDipanggil').textContent;
+  alert('Antrian ' + nomor + ' selesai dilayani!');
+
+  // Update status jadi selesai
+  const rows = document.querySelectorAll('#tabelAntrian tr');
+  rows.forEach(row => {
+    if (row.cells[0].textContent === nomor) {
+      row.cells[5].innerHTML = '<span class="bg-green-100 text-green-700 px-2 py-1 rounded text-xs">Selesai</span>';
+      row.cells[6].innerHTML = '<span class="text-gray-400 text-xs">-</span>';
+    }
+  });
+
+  // Reset box dipanggil
+  document.getElementById('nomorDipanggil').textContent = '-';
+  document.getElementById('namaDipanggil').textContent = 'Belum ada antrian dipanggil';
+}
+</script>
+</body>
+</html>
