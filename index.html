@@ -176,9 +176,22 @@ setInterval(loadStatus, 10000);
         </div>
       </div>
 
-      <a href="kontak.html">Kontak Kami</a>
-      <a href="login.html" style="background:#86efac;color:#065f46;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Login</a>
-<a href="register.html" style="background:#047857;color:white;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Register</a>
+     <!-- Dropdown Kontak Kami -->
+<div class="relative group">
+  <button class="text-gray-700 hover:text-teal-600 font-medium flex items-center gap-1">
+    Kontak Kami <i class="fa-solid fa-chevron-down text-xs"></i>
+  </button>
+  <div class="absolute hidden group-hover:block bg-white shadow-xl rounded-xl mt-2 py-2 w-52 border z-50">
+    <a href="#kritik-saran" class="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600">
+      <i class="fa-solid fa-comment-dots mr-2"></i>Kritik & Saran
+    </a>
+    <a href="#survey" class="block px-4 py-2 text-sm text-gray-700 hover:bg-teal-50 hover:text-teal-600">
+      <i class="fa-solid fa-clipboard-check mr-2"></i>Survey Kepuasan
+    </a>
+  </div>
+</div>
+  <a href="login.html" style="background:#86efac;color:#065f46;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Login</a>
+  <a href="register.html" style="background:#047857;color:white;padding:10px 18px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Register</a>
 </nav>
     <button class="mobile-btn" id="mobile-btn">☰</button>
   </div>
