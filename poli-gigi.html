@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poli Gigi & Mulut - Puskesmas Sehat Bersama</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f8fafc; color: #1e293b; scroll-behavior: smooth; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    
+    header { background: white; box-shadow: 0 1px 3px #0001; position: sticky; top: 0; z-index: 9999; }
+    .nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #047857; text-decoration: none; }
+    .logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-links { display: flex; gap: 25px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #475569; font-weight: 500; transition: 0.2s; }
+    .nav-links a:hover { color: #047857; }
+    
+    .nav-links a, .dropdown-btn { font-size: 0.875rem !important; font-weight: 500; }
+    .dropdown-btn { background: none; border: none; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: inherit; padding: 0; }
+    .dropdown { position: relative; padding-bottom: 20px; margin-bottom: -20px; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 180px; box-shadow: 0 8px 16px #0002; border-radius: 8px; z-index: 10000; padding: 8px 0; margin-top: 0; }
+    .dropdown-content a { color: #475569; padding: 8px 16px; text-decoration: none; display: block; font-size: 0.8125rem !important; font-weight: 400; }
+    .dropdown-content a:hover { background: #f1f5f9; color: #047857; }
+    .dropdown:hover .dropdown-content, .dropdown-content:hover { display: block; }
+    
+    .mobile-btn { display: none; background: none; border: none; font-size: 1.5rem; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 20px; box-shadow: 0 4px 6px #0001; gap: 15px; align-items: start; }
+      .nav-links.show { display: flex; }
+      .mobile-btn { display: block; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Logo Puskesmas Sehat Bersama">
+        <div>PUSKESMAS SEHAT BERSAMA</div>
+      </a>
+      
+      <nav class="nav-links" id="nav-menu">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+          <button class="dropdown-btn">Profil </button>
+          <div class="dropdown-content">
+            <a href="visi-misi.html">Visi & Misi</a>
+            <a href="sejarah.html">Sejarah</a>
+            <a href="struktur.html">Struktur Organisasi</a>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button class="dropdown-btn">Layanan </button>
+          <div class="dropdown-content">
+            <a href="poli-umum.html">Poli Umum</a>
+            <a href="poli-gigi.html" style="color:#047857;font-weight:600;">Poli Gigi</a>
+            <a href="kia.html">KIA/KB</a>
+            <a href="daftar.html">Daftar Online</a>
+          </div>
+        </div>
+        <a href="login.html" style="background:#86efac;color:#065f46;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Login</a>
+      </nav>
+      <button class="mobile-btn" id="mobile-btn">☰</button>
+    </div>
+  </header>
+
+  <main class="container py-12">
+    <div data-aos="fade-up">
+      <div class="flex items-center gap-3 mb-6">
+        <i class="fa-solid fa-tooth text-4xl text-teal-600"></i>
+        <h1 class="text-3xl font-bold text-teal-700">Poli Gigi & Mulut</h1>
+      </div>
+      
+      <div class="bg-yellow-50 border-l-4 border-yellow-400 p-4 mb-8 rounded-lg" data-aos="fade-up" data-aos-delay="100">
+        <p class="text-yellow-800"><i class="fa-solid fa-triangle-exclamation mr-2"></i><b>Penting:</b> Kuota Poli Gigi terbatas 20 pasien/hari. Wajib daftar online terlebih dahulu!</p>
+      </div>
+    </div>
+
+    <div class="grid md:grid-cols-3 gap-6 mb-10">
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="200">
+        <i class="fa-solid fa-clock text-3xl text-teal-600 mb-3"></i>
+        <h3 class="font-bold text-lg mb-2">Jam Pelayanan</h3>
+        <p class="text-gray-600">Senin - Kamis<br><b>08:00 - 12:00 WIB</b></p>
+        <p class="text-gray-600 mt-2">Jumat<br><b>08:00 - 10:30 WIB</b></p>
+      </div>
+      <div class="bg-white p-6 rounded-xl shadow-md hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="300">
+        <i class="fa-solid fa-user-doctor text-3xl text-teal-600 mb-3"></i>
+        <h3 class="font-bold text-lg mb-2">Dokter Gigi</h3>
+        <p class="text-gray-600">drg. Maya Putri</p>
+        <p class="text-sm text-gray-500 mt-2">SIP: 123/DGI/2024</p>
+      </div>
+      <div class="bg-gradient-to-br from-teal-600 to-teal-700 p-6 rounded-xl shadow-md text-white hover:shadow-xl transition" data-aos="zoom-in" data-aos-delay="400">
+        <h3 class="font-bold text-lg mb-2">Daftar Sekarang</h3>
+        <p class="text-sm mb-4 opacity-90">Ambil antrian dari rumah, hemat waktu!</p>
+        <a href="daftar.html" class="bg-white text-teal-600 px-5 py-2.5 rounded-lg font-semibold inline-block hover:bg-gray-100 transition">Daftar Poli Gigi →</a>
+      </div>
+    </div>
+
+    <div class="grid lg:grid-cols-2 gap-8">
+      <div class="bg-white p-8 rounded-xl shadow-md" data-aos="fade-right">
+        <h2 class="text-2xl font-bold mb-6 text-teal-700 flex items-center gap-2">
+          <i class="fa-solid fa-circle-check"></i> Layanan Kami
+        </h2>
+        <div class="space-y-4">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-teal-600 mt-1"></i>
+            <div>
+              <b>Cabut Gigi</b>
+              <p class="text-sm text-gray-600">Gigi dewasa & gigi susu anak</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-teal-600 mt-1"></i>
+            <div>
+              <b>Tambal Gigi Berlubang</b>
+              <p class="text-sm text-gray-600">Tambal GIC/Komposit</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-teal-600 mt-1"></i>
+            <div>
+              <b>Scaling / Pembersihan Karang Gigi</b>
+              <p class="text-sm text-gray-600">Manual scaling</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-teal-600 mt-1"></i>
+            <div>
+              <b>Pengobatan Sakit Gigi & Gusi</b>
+              <p class="text-sm text-gray-600">Gusi bengkak, berdarah, sariawan</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-teal-600 mt-1"></i>
+            <div>
+              <b>Perawatan Syaraf Gigi</b>
+              <p class="text-sm text-gray-600">Perawatan awal sebelum rujuk</p>
+            </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-check text-teal-600 mt-1"></i>
+            <div>
+              <b>UKGS - Gigi Anak Sekolah</b>
+              <p class="text-sm text-gray-600">Penyuluhan & pemeriksaan ke SD</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-red-50 p-8 rounded-xl shadow-md border border-red-200" data-aos="fade-left">
+        <h2 class="text-2xl font-bold mb-6 text-red-700 flex items-center gap-2">
+          <i class="fa-solid fa-circle-xmark"></i> Tidak Dilayani
+        </h2>
+        <div class="space-y-4 text-red-900">
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-xmark mt-1"></i>
+            <div>
+              <b>Pasang Behel/Kawat Gigi</b>
+              <p class="text-sm opacity-80">Rujuk ke Spesialis Ortodonti</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-xmark mt-1"></i>
+            <div>
+              <b>Pasang Gigi Palsu</b>
+              <p class="text-sm opacity-80">Rujuk ke Spesialis Prostodonti</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-xmark mt-1"></i>
+            <div>
+              <b>Implan Gigi</b>
+              <p class="text-sm opacity-80">Rujuk ke Spesialis Bedah Mulut</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-xmark mt-1"></i>
+            <div>
+              <b>Operasi Gigi Bungsu</b>
+              <p class="text-sm opacity-80">Rujuk ke RS</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3">
+            <i class="fa-solid fa-xmark mt-1"></i>
+            <div>
+              <b>Bleaching/Veneer</b>
+              <p class="text-sm opacity-80">Tindakan estetik, tidak cover BPJS</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-blue-50 p-8 rounded-xl shadow-md mt-8" data-aos="fade-up">
+      <h2 class="text-2xl font-bold mb-6 text-blue-700 flex items-center gap-2">
+        <i class="fa-solid fa-list-check"></i> Alur & Syarat Pelayanan
+      </h2>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div>
+          <h3 class="font-bold mb-3">Syarat Berobat:</h3>
+          <ul class="space-y-2 text-gray-700">
+            <li>✓ <b>Wajib daftar online</b> - Kuota terbatas</li>
+            <li>✓ Bawa KTP + Kartu BPJS aktif</li>
+            <li>✓ Datang 15 menit sebelum jam praktek</li>
+            <li>✓ Sudah sarapan jika mau cabut gigi</li>
+            <li>✓ Anak wajib didampingi orang tua</li>
+          </ul>
+        </div>
+        <div>
+          <h3 class="font-bold mb-3">Alur Pelayanan:</h3>
+          <ol class="space-y-2 text-gray-700">
+            <li><b>1.</b> Daftar online → Dapat nomor antrian</li>
+            <li><b>2.</b> Datang ke Puskesmas → Lapor loket</li>
+            <li><b>3.</b> Tunggu panggilan di ruang tunggu</li>
+            <li><b>4.</b> Pemeriksaan & tindakan oleh drg</li>
+            <li><b>5.</b> Ambil obat di Farmasi jika ada resep</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer class="bg-gray-100 py-8 mt-12">
+    <div class="container text-center text-gray-600 text-sm">
+      <p>© 2026 Puskesmas Sehat Bersama | Poli Gigi & Mulut</p>
+    </div>
+  </footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+AOS.init({ duration: 800, once: true });
+document.getElementById('mobile-btn').addEventListener('click', function() {
+  document.getElementById('nav-menu').classList.toggle('show');
+});
+</script>
+</body>
+</html>
