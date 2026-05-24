@@ -75,81 +75,114 @@
       .nav-links { display: none; }
       .hero-img { order: -1; margin-bottom: 20px; }
     }
+/* Dropdown Navbar Baru */
+.nav-links { position: relative; }
+.dropdown { position: relative; }
+.dropdown-btn { background: none; border: none; color: #475569; font-weight: 500; font-size: 1rem; cursor: pointer; display: flex; align-items: center; gap: 4px; }
+.dropdown-content { 
+  display: none; position: absolute; top: 50px; left: 0; background: white; 
+  min-width: 200px; box-shadow: 0 8px 16px #0002; border-radius: 8px; 
+  z-index: 100; padding: 8px 0;
+}
+.dropdown-content a { 
+  color: #475569; padding: 10px 16px; text-decoration: none; display: block; font-weight: 400;
+}
+.dropdown-content a:hover { background: #f1f5f9; color: #047857; }
+.dropdown:hover .dropdown-content { display: block; }
+.dropdown-btn:hover { color: #047857; }
+
+/* Mobile Menu */
+.mobile-btn { display: none; background: none; border: none; font-size: 1.5rem; }
+@media (max-width: 768px) {
+  .nav-links { 
+    display: none; position: absolute; top: 70px; left: 0; right: 0; 
+    background: white; flex-direction: column; padding: 20px; 
+    box-shadow: 0 4px 6px #0001; gap: 15px; align-items: start;
+  }
+  .nav-links.show { display: flex; }
+  .mobile-btn { display: block; }
+  .dropdown-content { position: static; box-shadow: none; padding-left: 15px; }
+}
   </style>
 </head>
+<script>
+// Menu HP
+document.getElementById('mobile-btn').addEventListener('click', function() {
+  document.getElementById('nav-menu').classList.toggle('show');
+});
+
+// Data antrian
+const API = "https://script.google.com/macros/s/AKfycbzsOdyzO13CMcrBNru_CpVxKqX1OJh81TdLeFHDoF3d7AU8f_jxibQ1rmiUHqqopb6fEQ/exec?action=getPublic";
+async function loadStatus() {
+  try {
+    const r = await fetch(API);
+    const d = await r.json();
+    if(d.status !== 'ok') return;
+    document.getElementById('menunggu').textContent = d.totalHariIni || 0;
+    document.getElementById('dipanggil').textContent = d.dipanggil ? d.dipanggil.No_Antrian : '-';
+    document.getElementById('waktu').textContent = d.rataMenit || 0;
+    document.getElementById('dokter').textContent = d.dokterTersedia || 3;
+    document.getElementById('q-now').textContent = d.dipanggil ? d.dipanggil.No_Antrian : '-';
+    document.getElementById('q-time').textContent = d.rataMenit || 0;
+    document.getElementById('q-next').textContent = d.selanjutnya ? d.selanjutnya.No_Antrian : '-';
+  } catch(e) { console.log(e); }
+}
+loadStatus();
+setInterval(loadStatus, 10000);
+</script>
 <body>
   <!-- Running Text -->
   <div class="marquee">
     <p>Selamat Datang di Website Puskesmas Sehat Bersama • Pendaftaran Online Buka 24 Jam • Jam Pelayanan 07:30 - 14:00 WIB • Layanan Cepat, Mudah, & Transparan untuk Anda</p>
   </div>
 
- <header class="bg-green-700 shadow-lg sticky top-0 z-50">
-    <nav class="container mx-auto px-6 py-3 flex justify-between items-center text-white">
-        <a href="index.html" class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo" class="h-10 w-10 bg-white rounded-full p-1">
-            <div class="hidden sm:block">
-                <p class="font-bold leading-tight">PUSKESMAS</p>
-                <p class="text-xs leading-tight">SEHAT BERSAMA</p>
-            </div>
-        </a>
-        
-        <div class="hidden lg:flex items-center space-x-8 font-medium">
-            <a href="index.html" class="hover:text-green-200">Home</a>
-            
-            <div class="relative group">
-                <button class="flex items-center gap-1 hover:text-green-200">Profil ▼</button>
-                <div class="absolute hidden group-hover:block bg-white text-gray-700 rounded-lg shadow-xl py-2 w-56 mt-2">
-                    <a href="visi-misi.html" class="block px-4 py-2 hover:bg-gray-100">Visi & Misi</a>
-                    <a href="sejarah.html" class="block px-4 py-2 hover:bg-gray-100">Sejarah</a>
-                    <a href="struktur.html" class="block px-4 py-2 hover:bg-gray-100">Struktur Organisasi</a>
-                </div>
-            </div>
-
-            <div class="relative group">
-                <button class="flex items-center gap-1 hover:text-green-200">Publikasi ▼</button>
-                <div class="absolute hidden group-hover:block bg-white text-gray-700 rounded-lg shadow-xl py-2 w-48 mt-2">
-                    <a href="berita.html" class="block px-4 py-2 hover:bg-gray-100">Berita</a>
-                    <a href="galeri.html" class="block px-4 py-2 hover:bg-gray-100">Galeri</a>
-                </div>
-            </div>
-
-            <div class="relative group">
-                <button class="flex items-center gap-1 hover:text-green-200">Layanan ▼</button>
-                <div class="absolute hidden group-hover:block bg-white text-gray-700 rounded-lg shadow-xl py-2 w-48 mt-2">
-                    <a href="poli-umum.html" class="block px-4 py-2 hover:bg-gray-100">Poli Umum</a>
-                    <a href="poli-gigi.html" class="block px-4 py-2 hover:bg-gray-100">Poli Gigi</a>
-                    <a href="daftar.html" class="block px-4 py-2 hover:bg-gray-100 font-semibold text-green-700">Daftar Online</a>
-                </div>
-            </div>
-
-            <a href="kontak.html" class="hover:text-green-200">Kontak Kami</a>
+  <header>
+  <div class="container nav">
+    <a href="index.html" class="logo">
+      <img src="logo.png" alt="Logo Puskesmas Sehat Bersama">
+      <div>PUSKESMAS SEHAT BERSAMA<br><span style="font-size:0.7rem;font-weight:500;"></span></div>
+    </a>
+    
+    <nav class="nav-links" id="nav-menu">
+      <a href="index.html" class="active">Home</a>
+      
+      <div class="dropdown">
+        <button class="dropdown-btn">Profil ▼</button>
+        <div class="dropdown-content">
+          <a href="visi-misi.html">Visi & Misi</a>
+          <a href="sejarah.html">Sejarah</a>
+          <a href="struktur.html">Struktur Organisasi</a>
+          <a href="tupoksi.html">Tupoksi</a>
         </div>
+      </div>
 
-        <button id="mobile-btn" class="lg:hidden">
-            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-        </button>
+      <div class="dropdown">
+        <button class="dropdown-btn">Publikasi ▼</button>
+        <div class="dropdown-content">
+          <a href="berita.html">Berita</a>
+          <a href="pengumuman.html">Pengumuman</a>
+          <a href="galeri.html">Galeri</a>
+          <a href="dashboard.html">Transparansi</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <button class="dropdown-btn">Layanan ▼</button>
+        <div class="dropdown-content">
+          <a href="poli-umum.html">Poli Umum</a>
+          <a href="poli-gigi.html">Poli Gigi</a>
+          <a href="kia.html">KIA/KB</a>
+          <a href="daftar.html" style="color:#047857;font-weight:600;">Daftar Online</a>
+        </div>
+      </div>
+
+      <a href="kontak.html">Kontak Kami</a>
     </nav>
 
-    <div id="mobile-menu" class="hidden lg:hidden bg-green-800 text-white px-6 pb-4">
-        <a href="index.html" class="block py-2">Home</a>
-        <a href="profil.html" class="block py-2">Profil</a>
-        <a href="publikasi.html" class="block py-2">Publikasi</a>
-        <a href="layanan.html" class="block py-2">Layanan</a>
-        <a href="kontak.html" class="block py-2">Kontak Kami</a>
-    </div>
+    <button class="mobile-btn" id="mobile-btn">☰</button>
+  </div>
 </header>
 
-<script>
-document.getElementById('mobile-btn').addEventListener('click', function() {
-    document.getElementById('mobile-menu').classList.toggle('hidden');
-});
-</script>
-<!-- Sampai sini -->
-
-<!-- Logo kamu yang udah ada, taruh di bawah navbar -->
-<div class="container mx-auto px-6 py-12 text-center">
-    <img src="logo.png" alt="Logo Puskesmas Sehat Bersama" class="w-64 md:w-96 mx-auto">
-</div>
   <section class="hero">
     <div class="container hero-grid">
       <div>
