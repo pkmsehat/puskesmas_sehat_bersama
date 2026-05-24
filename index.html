@@ -83,56 +83,41 @@
     <p>Selamat Datang di Website Puskesmas Sehat Bersama • Pendaftaran Online Buka 24 Jam • Jam Pelayanan 07:30 - 14:00 WIB • Layanan Cepat, Mudah, & Transparan untuk Anda</p>
   </div>
 
-  <!-- Navbar Sticky + Menu Baru -->
-<header class="bg-green-700 shadow-lg sticky top-0 z-50">
+ <header class="bg-green-700 shadow-lg sticky top-0 z-50">
     <nav class="container mx-auto px-6 py-3 flex justify-between items-center text-white">
-        <!-- Logo -->
         <a href="index.html" class="flex items-center gap-3">
-            <img src="logo.png" alt="Logo Puskesmas" class="h-10 w-10 bg-white rounded-full p-1">
+            <img src="logo.png" alt="Logo" class="h-10 w-10 bg-white rounded-full p-1">
             <div class="hidden sm:block">
                 <p class="font-bold leading-tight">PUSKESMAS</p>
                 <p class="text-xs leading-tight">SEHAT BERSAMA</p>
             </div>
         </a>
         
-        <!-- Menu Desktop -->
         <div class="hidden lg:flex items-center space-x-8 font-medium">
             <a href="index.html" class="hover:text-green-200">Home</a>
             
-            <!-- Dropdown Profil -->
             <div class="relative group">
-                <button class="flex items-center gap-1 hover:text-green-200">
-                    Profil <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
+                <button class="flex items-center gap-1 hover:text-green-200">Profil ▼</button>
                 <div class="absolute hidden group-hover:block bg-white text-gray-700 rounded-lg shadow-xl py-2 w-56 mt-2">
                     <a href="visi-misi.html" class="block px-4 py-2 hover:bg-gray-100">Visi & Misi</a>
                     <a href="sejarah.html" class="block px-4 py-2 hover:bg-gray-100">Sejarah</a>
                     <a href="struktur.html" class="block px-4 py-2 hover:bg-gray-100">Struktur Organisasi</a>
-                    <a href="tupoksi.html" class="block px-4 py-2 hover:bg-gray-100">Tupoksi</a>
                 </div>
             </div>
 
-            <!-- Dropdown Publikasi -->
             <div class="relative group">
-                <button class="flex items-center gap-1 hover:text-green-200">
-                    Publikasi <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
+                <button class="flex items-center gap-1 hover:text-green-200">Publikasi ▼</button>
                 <div class="absolute hidden group-hover:block bg-white text-gray-700 rounded-lg shadow-xl py-2 w-48 mt-2">
                     <a href="berita.html" class="block px-4 py-2 hover:bg-gray-100">Berita</a>
-                    <a href="pengumuman.html" class="block px-4 py-2 hover:bg-gray-100">Pengumuman</a>
                     <a href="galeri.html" class="block px-4 py-2 hover:bg-gray-100">Galeri</a>
                 </div>
             </div>
 
-            <!-- Dropdown Layanan -->
             <div class="relative group">
-                <button class="flex items-center gap-1 hover:text-green-200">
-                    Layanan <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
-                </button>
+                <button class="flex items-center gap-1 hover:text-green-200">Layanan ▼</button>
                 <div class="absolute hidden group-hover:block bg-white text-gray-700 rounded-lg shadow-xl py-2 w-48 mt-2">
                     <a href="poli-umum.html" class="block px-4 py-2 hover:bg-gray-100">Poli Umum</a>
                     <a href="poli-gigi.html" class="block px-4 py-2 hover:bg-gray-100">Poli Gigi</a>
-                    <a href="kia.html" class="block px-4 py-2 hover:bg-gray-100">KIA/KB</a>
                     <a href="daftar.html" class="block px-4 py-2 hover:bg-gray-100 font-semibold text-green-700">Daftar Online</a>
                 </div>
             </div>
@@ -140,13 +125,11 @@
             <a href="kontak.html" class="hover:text-green-200">Kontak Kami</a>
         </div>
 
-        <!-- Tombol HP -->
         <button id="mobile-btn" class="lg:hidden">
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
         </button>
     </nav>
 
-    <!-- Menu HP -->
     <div id="mobile-menu" class="hidden lg:hidden bg-green-800 text-white px-6 pb-4">
         <a href="index.html" class="block py-2">Home</a>
         <a href="profil.html" class="block py-2">Profil</a>
@@ -157,12 +140,16 @@
 </header>
 
 <script>
-// Biar menu HP bisa buka tutup
 document.getElementById('mobile-btn').addEventListener('click', function() {
     document.getElementById('mobile-menu').classList.toggle('hidden');
 });
 </script>
+<!-- Sampai sini -->
 
+<!-- Logo kamu yang udah ada, taruh di bawah navbar -->
+<div class="container mx-auto px-6 py-12 text-center">
+    <img src="logo.png" alt="Logo Puskesmas Sehat Bersama" class="w-64 md:w-96 mx-auto">
+</div>
   <section class="hero">
     <div class="container hero-grid">
       <div>
