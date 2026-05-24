@@ -4,171 +4,180 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login - Puskesmas Sehat Bersama</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { 
-      font-family: 'Segoe UI', system-ui, sans-serif; 
-      background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%);
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0fdf4; color: #1e293b; }
+    .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+    
+    header { background: white; box-shadow: 0 1px 3px #0001; position: sticky; top: 0; z-index: 9999; }
+    .nav { display: flex; justify-content: space-between; align-items: center; height: 70px; }
+    .logo { display: flex; align-items: center; gap: 12px; font-weight: 700; color: #047857; text-decoration: none; }
+    .logo img { width: 40px; height: 40px; object-fit: contain; }
+    .nav-links { display: flex; gap: 25px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #475569; font-weight: 500; transition: 0.2s; }
+    .nav-links a:hover { color: #047857; }
+    
+    .nav-links a, .dropdown-btn { font-size: 0.875rem !important; font-weight: 500; }
+    .dropdown-btn { background: none; border: none; color: #475569; cursor: pointer; display: flex; align-items: center; gap: 4px; font-family: inherit; padding: 0; }
+    .dropdown { position: relative; padding-bottom: 20px; margin-bottom: -20px; }
+    .dropdown-content { display: none; position: absolute; top: 100%; left: 0; background: white; min-width: 180px; box-shadow: 0 8px 16px #0002; border-radius: 8px; z-index: 10000; padding: 8px 0; margin-top: 0; }
+    .dropdown-content a { color: #475569; padding: 8px 16px; text-decoration: none; display: block; font-size: 0.8125rem !important; font-weight: 400; }
+    .dropdown-content a:hover { background: #f1f5f9; color: #047857; }
+    .dropdown:hover .dropdown-content, .dropdown-content:hover { display: block; }
+    
+    .mobile-btn { display: none; background: none; border: none; font-size: 1.5rem; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; position: absolute; top: 70px; left: 0; right: 0; background: white; flex-direction: column; padding: 20px; box-shadow: 0 4px 6px #0001; gap: 15px; align-items: start; }
+      .nav-links.show { display: flex; }
+      .mobile-btn { display: block; }
     }
-    .container { max-width: 400px; margin: 0 auto; padding: 20px; width: 100%; }
-    .card { 
-      background: white; 
-      padding: 35px 30px; 
-      border-radius: 16px; 
-      box-shadow: 0 10px 25px #0001; 
-    }
-    .logo { text-align: center; margin-bottom: 20px; }
-    .logo img { width: 60px; }
-    h1 { color: #1d4ed8; margin-bottom: 8px; text-align: center; font-size: 1.8rem; }
-    .subtitle { color: #64748b; text-align: center; margin-bottom: 30px; font-size: 0.95rem; }
-    .form-group { margin-bottom: 18px; }
-    .form-group label { 
-      display: block; 
-      margin-bottom: 6px; 
-      font-weight: 500; 
-      color: #334155; 
-      font-size: 0.9rem;
-    }
-    .form-group input, .form-group select { 
-      width: 100%; 
-      padding: 12px 14px; 
-      border: 1px solid #cbd5e1; 
-      border-radius: 8px; 
-      font-size: 1rem;
-      transition: all 0.2s;
-    }
-    .form-group input:focus, .form-group select:focus { 
-      outline: none; 
-      border-color: #1d4ed8;
-      box-shadow: 0 0 0 3px #dbeafe;
-    }
-    .btn { 
-      width: 100%; 
-      padding: 13px; 
-      border: none; 
-      border-radius: 8px; 
-      font-weight: 600; 
-      font-size: 1rem; 
-      cursor: pointer; 
-      background: #1d4ed8; 
-      color: white;
-      transition: 0.2s;
-    }
-    .btn:hover { background: #1e40af; }
-    .btn:disabled { background: #94a3b8; cursor: not-allowed; }
-    .alert { 
-      padding: 12px; 
-      border-radius: 8px; 
-      margin-bottom: 18px; 
-      font-size: 0.9rem; 
-    }
-    .alert-error { background: #fee2e2; color: #b91c1c; border: 1px solid #fecaca; }
-    .alert-success { background: #dcfce7; color: #166534; border: 1px solid #bbf7d0; }
-    .links { text-align: center; margin-top: 25px; color: #64748b; font-size: 0.9rem; }
-    .links a { color: #047857; text-decoration: none; font-weight: 600; }
-    .links a:hover { text-decoration: underline; }
-    .back { text-align: center; margin-top: 15px; }
-    .back a { color: #64748b; text-decoration: none; font-size: 0.9rem; }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="card">
-      <div class="logo">
-        <img src="logo.png" alt="Puskesmas Sehat Bersama">
-      </div>
-      <h1>Login Akun</h1>
-      <p class="subtitle">Masuk untuk ambil antrian online</p>
+  <header>
+    <div class="container nav">
+      <a href="index.html" class="logo">
+        <img src="logo.png" alt="Logo Puskesmas Sehat Bersama">
+        <div>PUSKESMAS SEHAT BERSAMA</div>
+      </a>
       
-      <div id="alert"></div>
-
-      <form id="login-form">
-        <div class="form-group">
-          <label>Login Sebagai</label>
-          <select id="role">
-            <option value="user">Masyarakat</option>
-            <option value="admin">Admin Puskesmas</option>
-          </select>
+      <nav class="nav-links" id="nav-menu">
+        <a href="index.html">Home</a>
+        <div class="dropdown">
+          <button class="dropdown-btn">Profil </button>
+          <div class="dropdown-content">
+            <a href="visi-misi.html">Visi & Misi</a>
+            <a href="sejarah.html">Sejarah</a>
+            <a href="struktur.html">Struktur Organisasi</a>
+          </div>
         </div>
-        <div class="form-group">
-          <label>NIK / Username</label>
-          <input type="text" id="nik" placeholder="Masukkan NIK 16 digit / admin123" required>
+        <div class="dropdown">
+          <button class="dropdown-btn">Layanan </button>
+          <div class="dropdown-content">
+            <a href="poli-umum.html">Poli Umum</a>
+            <a href="poli-gigi.html">Poli Gigi</a>
+            <a href="kia.html">KIA/KB</a>
+            <a href="daftar.html">Daftar Online</a>
+          </div>
         </div>
-        <div class="form-group">
-          <label>Password</label>
-          <input type="password" id="password" placeholder="Masukkan password" required>
-        </div>
-        <button type="submit" class="btn" id="btn-login">Login Sekarang</button>
-      </form>
-
-      <div class="links">
-        Belum punya akun? <a href="register.html">Daftar di sini</a>
-      </div>
-      <div class="back">
-        <a href="index.html">← Kembali ke Beranda</a>
-      </div>
+        <a href="login.html" style="background:#86efac;color:#065f46;padding:8px 14px;border-radius:8px;text-decoration:none;font-weight:600;margin-left:10px;">Login</a>
+      </nav>
+      <button class="mobile-btn" id="mobile-btn">☰</button>
     </div>
-  </div>
+  </header>
+
+  <main class="min-h-screen flex items-center justify-center py-12 px-4">
+    <div class="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md">
+      <div class="text-center mb-6">
+        <img src="logo.png" alt="Logo Puskesmas Sehat Bersama" class="w-16 h-16 mx-auto mb-3 object-contain">
+        <h1 class="text-2xl font-bold text-teal-700">Login Akun</h1>
+        <p class="text-gray-600 text-sm mt-1">Masuk untuk ambil antrian atau kelola data</p>
+      </div>
+
+      <form id="loginForm" class="space-y-4">
+        <!-- Pilih Role -->
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-2">Login Sebagai *</label>
+          <div class="grid grid-cols-2 gap-3">
+            <label class="relative">
+              <input type="radio" name="role" value="masyarakat" class="peer sr-only" checked>
+              <div class="p-3 border-2 rounded-lg cursor-pointer text-center peer-checked:border-teal-600 peer-checked:bg-teal-50 peer-checked:text-teal-700">
+                <i class="fa-solid fa-user text-lg mb-1"></i>
+                <p class="text-sm font-medium">Masyarakat</p>
+              </div>
+            </label>
+            <label class="relative">
+              <input type="radio" name="role" value="admin" class="peer sr-only" id="roleAdmin">
+              <div class="p-3 border-2 rounded-lg cursor-pointer text-center peer-checked:border-amber-600 peer-checked:bg-amber-50 peer-checked:text-amber-700">
+                <i class="fa-solid fa-user-shield text-lg mb-1"></i>
+                <p class="text-sm font-medium">Admin Puskesmas</p>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <!-- Kode Admin - Muncul kalau pilih Admin -->
+        <div id="kodeAdminField" class="hidden">
+          <label class="block text-sm font-medium text-gray-700 mb-1">Kode Admin *</label>
+          <input type="text" id="kodeAdmin" placeholder="Masukkan kode dari Kepala Puskesmas" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-amber-500">
+          <p class="text-xs text-amber-600 mt-1"><i class="fa-solid fa-lock"></i> Hanya untuk pegawai puskesmas</p>
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">NIK *</label>
+          <input type="text" maxlength="16" placeholder="16 digit NIK" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+        </div>
+
+        <div>
+          <label class="block text-sm font-medium text-gray-700 mb-1">Password *</label>
+          <input type="password" placeholder="Masukkan password" required class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500">
+        </div>
+
+        <div class="flex items-center justify-between text-sm">
+          <label class="flex items-center gap-2 cursor-pointer">
+            <input type="checkbox" class="rounded text-teal-600 focus:ring-teal-500">
+            <span class="text-gray-600">Ingat saya</span>
+          </label>
+          <a href="#" class="text-teal-600 hover:underline">Lupa password?</a>
+        </div>
+
+        <button type="submit" class="w-full bg-teal-600 hover:bg-teal-700 text-white font-bold py-3 rounded-lg transition flex items-center justify-center gap-2">
+          <i class="fa-solid fa-right-to-bracket"></i> Login Sekarang
+        </button>
+
+        <div class="text-center text-sm text-gray-600">
+          Belum punya akun? <a href="daftar.html" class="text-teal-600 font-medium hover:underline">Daftar di sini</a>
+        </div>
+        <div class="text-center">
+          <a href="index.html" class="text-sm text-gray-500 hover:text-teal-600"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
+        </div>
+      </form>
+    </div>
+  </main>
 
 <script>
-const API_URL = "https://script.google.com/macros/s/AKfycbytiOmk3hIj-hYcNqNg4dUTUk24ZAg-oJlRbyZI_XK8-f1ocHBCtBjTEucyfSLtCNzDAg/exec";
-
-function showAlert(msg, type) {
-  document.getElementById('alert').innerHTML = `<div class="alert alert-${type}">${msg}</div>`;
-}
-
-document.getElementById('login-form').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const btn = document.getElementById('btn-login');
-  btn.disabled = true;
-  btn.textContent = 'Memproses...';
-  
-  const data = {
-    action: 'login',
-    role: document.getElementById('role').value,
-    nik: document.getElementById('nik').value,
-    password: document.getElementById('password').value
-  };
-  
-  try {
-    const res = await fetch(API_URL, { 
-      method: 'POST', 
-      body: JSON.stringify(data) 
-    });
-    const hasil = await res.json();
-    
-    if(hasil.status === 'ok') {
-      showAlert('Login berhasil! Mengalihkan...', 'success');
-      localStorage.setItem('user', JSON.stringify(hasil.user));
-      
-      setTimeout(() => {
-        if(data.role === 'admin') {
-          window.location.href = 'admin.html';
-        } else {
-          window.location.href = 'daftar.html'; // ke halaman ambil antrian
-        }
-      }, 1000);
-    } else {
-      showAlert(hasil.message || 'Login gagal. Cek NIK & password', 'error');
-      btn.disabled = false;
-      btn.textContent = 'Login Sekarang';
-    }
-  } catch(err) {
-    showAlert('Gagal terhubung ke server. Coba lagi', 'error');
-    btn.disabled = false;
-    btn.textContent = 'Login Sekarang';
-  }
+document.getElementById('mobile-btn').addEventListener('click', function() {
+  document.getElementById('nav-menu').classList.toggle('show');
 });
 
-// Auto-redirect kalo udah login
-if(localStorage.getItem('user')) {
-  const user = JSON.parse(localStorage.getItem('user'));
-  if(user.role === 'admin') window.location.href = 'admin.html';
-  else window.location.href = 'daftar.html';
-}
+// Show/hide Kode Admin field
+const roleAdmin = document.getElementById('roleAdmin');
+const kodeAdminField = document.getElementById('kodeAdminField');
+const kodeAdminInput = document.getElementById('kodeAdmin');
+const allRoleRadios = document.querySelectorAll('input[name="role"]');
+
+allRoleRadios.forEach(radio => {
+  radio.addEventListener('change', function() {
+    if (roleAdmin.checked) {
+      kodeAdminField.classList.remove('hidden');
+      kodeAdminInput.required = true;
+    } else {
+      kodeAdminField.classList.add('hidden');
+      kodeAdminInput.required = false;
+      kodeAdminInput.value = '';
+    }
+  });
+});
+
+// Form submit dummy
+document.getElementById('loginForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const role = document.querySelector('input[name="role"]:checked').value;
+  
+  if (role === 'admin') {
+    if (kodeAdminInput.value !== 'PKM2026') {
+      alert('Kode Admin salah! Hubungi Kepala Puskesmas.');
+      return;
+    }
+    alert('Login berhasil sebagai Admin! Mengalihkan ke Dashboard...');
+    // window.location.href = 'dashboard-admin.html';
+  } else {
+    alert('Login berhasil sebagai Masyarakat! Mengalihkan ke Ambil Antrian...');
+    // window.location.href = 'antrian.html';
+  }
+});
 </script>
 </body>
 </html>
