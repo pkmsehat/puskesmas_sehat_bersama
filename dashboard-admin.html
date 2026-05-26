@@ -3,55 +3,62 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard Admin - Puskesmas</title>
+  <title>Dashboard Admin - Puskesmas Sehat Bersama</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    body { font-family: 'Segoe UI', system-ui, sans-serif; background: #f0fdf4; }
+  </style>
 </head>
-<body class="bg-gray-100">
-  <div class="min-h-screen">
-    <!-- Navbar -->
-    <nav class="bg-teal-700 text-white p-4">
-      <div class="container mx-auto flex justify-between items-center">
-        <h1 class="text-xl font-bold"><i class="fa-solid fa-hospital"></i> Dashboard Admin Puskesmas</h1>
-        <a href="login.html" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg text-sm">
-          <i class="fa-solid fa-right-from-bracket"></i> Logout
-        </a>
-      </div>
-    </nav>
+<body>
+  <!-- Navbar -->
+  <header class="bg-white shadow sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3 flex justify-between items-center">
+      <div class="flex items-center gap-3">
+        <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain">
+        <div>
+          <h1 class="font-bold text-teal-700">PUSKESMAS SEHAT BERSAMA</h1>
+          <p class="text-xs text-gray-500">Dashboard Admin</p>
+        </div>
+      <a href="login.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
+        <i class="fa-solid fa-right-from-bracket"></i> Logout
+      </a>
+    </div>
+  </header>
 
-    <!-- Konten -->
-    <main class="container mx-auto p-6">
-      <h2 class="text-2xl font-bold text-gray-800 mb-6">Selamat Datang, Admin!</h2>
+  <!-- Konten -->
+  <main class="container mx-auto p-6">
+    <h2 class="text-2xl font-bold text-gray-800 mb-6">Selamat Datang, Admin!</h2>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="font-bold text-lg mb-2 text-teal-700"><i class="fa-solid fa-users"></i> Antrian Hari Ini</h3>
+        <p class="text-3xl font-bold">27</p>
+        <p class="text-sm text-gray-500">Pasien terdaftar</p>
+      </div>
       
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-bold text-lg mb-2 text-teal-700"><i class="fa-solid fa-users"></i> Total Antrian Hari Ini</h3>
-          <p class="text-3xl font-bold">27</p>
-          <p class="text-sm text-gray-500">Pasien terdaftar</p>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-bold text-lg mb-2 text-amber-600"><i class="fa-solid fa-user-clock"></i> Sedang Dilayani</h3>
-          <p class="text-3xl font-bold">A-05</p>
-          <p class="text-sm text-gray-500">Poli Umum</p>
-        </div>
-        
-        <div class="bg-white p-6 rounded-xl shadow">
-          <h3 class="font-bold text-lg mb-2 text-blue-600"><i class="fa-solid fa-stethoscope"></i> Dokter Jaga</h3>
-          <p class="text-xl font-bold">dr. Andi Pratama</p>
-          <p class="text-sm text-gray-500">Poli Umum</p>
-        </div>
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="font-bold text-lg mb-2 text-amber-600"><i class="fa-solid fa-user-clock"></i> Sedang Dilayani</h3>
+        <p class="text-3xl font-bold">A-05</p>
+        <p class="text-sm text-gray-500">Poli Umum - dr. Andi</p>
       </div>
+      
+      <div class="bg-white p-6 rounded-xl shadow">
+        <h3 class="font-bold text-lg mb-2 text-blue-600"><i class="fa-solid fa-stethoscope"></i> Dokter Jaga</h3>
+        <p class="text-xl font-bold">dr. Andi Pratama</p>
+        <p class="text-sm text-gray-500">Poli Umum</p>
+      </div>
+    </div>
 
-      <div class="bg-white p-6 rounded-xl shadow mt-6">
-        <h3 class="font-bold text-lg mb-4">Menu Cepat</h3>
-        <div class="flex gap-3 flex-wrap">
-          <button class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-plus"></i> Panggil Antrian</button>
-          <button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-pause"></i> Jeda Layanan</button>
-          <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-print"></i> Cetak Laporan</button>
-        </div>
+    <div class="bg-white p-6 rounded-xl shadow">
+      <h3 class="font-bold text-lg mb-4">Menu Cepat</h3>
+      <div class="flex gap-3 flex-wrap">
+        <button class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-bullhorn"></i> Panggil Antrian</button>
+        <button class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-pause"></i> Jeda Layanan</button>
+        <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-print"></i> Cetak Laporan</button>
+        <button class="bg-gray-600 hover:bg-gray-700 text-white px-4 py-2 rounded-lg"><i class="fa-solid fa-gear"></i> Pengaturan</button>
       </div>
-    </main>
-  </div>
+    </div>
+  </main>
 </body>
 </html>
