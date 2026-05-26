@@ -29,9 +29,14 @@
   <main class="container mx-auto p-6">
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-2xl font-bold text-gray-800">Selamat Datang, Admin!</h2>
-      <button onclick="loadData()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm">
-        <i class="fa-solid fa-rotate"></i> Refresh Data
-      </button>
+      <div class="flex gap-2">
+        <button onclick="loadData()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm">
+          <i class="fa-solid fa-rotate"></i> Refresh
+        </button>
+        <button onclick="resetTampilan()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm">
+          <i class="fa-solid fa-trash"></i> Reset Data
+        </button>
+      </div>
     </div>
 
     <!-- Total Card -->
@@ -78,11 +83,9 @@
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow">
-      <h3 class="font-bold text-lg mb-4">Info Data</h3>
-      <div id="statusLoad" class="text-sm text-gray-500 mb-3">Terakhir update: -</div>
-      <button onclick="cetakLaporan()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
-        <i class="fa-solid fa-print"></i> Cetak Laporan Hari Ini
-      </button>
+      <h3 class="font-bold text-lg mb-2">Info Data</h3>
+      <div id="statusLoad" class="text-sm text-gray-500 mb-2">Terakhir update: -</div>
+      <p class="text-xs text-amber-600"><i class="fa-solid fa-triangle-exclamation"></i> Reset hanya mengosongkan tampilan dashboard. Data di Google Sheet tidak terhapus.</p>
     </div>
   </main>
 
@@ -94,7 +97,7 @@ async function loadData() {
   try {
     const res = await fetch(SHEET_CSV_URL);
     const csv = await res.text();
-    const rows = csv.split('\n').slice(1); // skip header
+    const rows = csv.split('\n').slice(1);
 
     let data = { Umum: [], Gigi: [], KIA: [] };
     let dipanggil = { Umum: '-', Gigi: '-', KIA: '-' };
@@ -102,7 +105,6 @@ async function loadData() {
     rows.forEach(row => {
       if (!row.trim()) return;
       const cols = row.split(',');
-      // Kolom: 0=Timestamp, 1=No, 2=No_Antrian, 3=Nama, 4=Poli, 5=No_HP, 6=Status, 7=Loket, 8=Dipanggil_Jam, 9=Petugas
       const noAntrian = cols?.trim() || '';
       const poli = cols?.trim() || '';
       const status = cols?.trim().toLowerCase() || '';
@@ -115,25 +117,21 @@ async function loadData() {
         data.Gigi.push(status);
         if (status === 'dipanggil') dipanggil.Gigi = noAntrian;
       }
-      // Poli Anak masuk ke KIA
       else if (poli.includes('KIA') || poli.includes('KB') || poli.includes('Anak')) {
         data.KIA.push(status);
         if (status === 'dipanggil') dipanggil.KIA = noAntrian;
       }
     });
 
-    // Update Total
     document.getElementById('totalUmum').innerText = data.Umum.length;
     document.getElementById('totalGigi').innerText = data.Gigi.length;
     document.getElementById('totalKIA').innerText = data.KIA.length;
     document.getElementById('totalSemua').innerText = data.Umum.length + data.Gigi.length + data.KIA.length;
 
-    // Update Menunggu
     document.getElementById('menungguUmum').innerText = data.Umum.filter(s => s === 'menunggu').length;
     document.getElementById('menungguGigi').innerText = data.Gigi.filter(s => s === 'menunggu').length;
     document.getElementById('menungguKIA').innerText = data.KIA.filter(s => s === 'menunggu').length;
 
-    // Update Dipanggil
     document.getElementById('dipanggilUmum').innerText = dipanggil.Umum;
     document.getElementById('dipanggilGigi').innerText = dipanggil.Gigi;
     document.getElementById('dipanggilKIA').innerText = dipanggil.KIA;
@@ -145,8 +143,21 @@ async function loadData() {
   }
 }
 
-function cetakLaporan() {
-  window.print();
+function resetTampilan() {
+  const yakin = confirm('Yakin mau hapus tampilan data? \n\nKlik OK untuk HAPUS, atau Cancel untuk KEMBALI.');
+  if (yakin) {
+    document.getElementById('totalUmum').innerText = 0;
+    document.getElementById('totalGigi').innerText = 0;
+    document.getElementById('totalKIA').innerText = 0;
+    document.getElementById('totalSemua').innerText = 0;
+    document.getElementById('menungguUmum').innerText = 0;
+    document.getElementById('menungguGigi').innerText = 0;
+    document.getElementById('menungguKIA').innerText = 0;
+    document.getElementById('dipanggilUmum').innerText = '-';
+    document.getElementById('dipanggilGigi').innerText = '-';
+    document.getElementById('dipanggilKIA').innerText = '-';
+    document.getElementById('statusLoad').innerText = 'Tampilan direset. Klik Refresh untuk load data lagi.';
+  }
 }
 
 loadData();
