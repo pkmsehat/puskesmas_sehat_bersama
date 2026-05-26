@@ -17,7 +17,7 @@
         <img src="logo.png" alt="Logo" class="w-10 h-10 object-contain">
         <div>
           <h1 class="font-bold text-teal-700">PUSKESMAS SEHAT BERSAMA</h1>
-          <p class="text-xs text-gray-500">Dashboard Admin</p>
+          <p class="text-xs text-gray-500">Dashboard Admin - Live Data</p>
         </div>
       </div>
       <a href="login.html" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg text-sm">
@@ -27,95 +27,130 @@
   </header>
 
   <main class="container mx-auto p-6">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Selamat Datang, Admin!</h2>
+    <div class="flex justify-between items-center mb-6">
+      <h2 class="text-2xl font-bold text-gray-800">Selamat Datang, Admin!</h2>
+      <button onclick="loadData()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm">
+        <i class="fa-solid fa-rotate"></i> Refresh Data
+      </button>
+    </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-      <!-- Poli Umum -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h3 class="font-bold text-lg mb-3 text-teal-700"><i class="fa-solid fa-stethoscope"></i> Poli Umum</h3>
-        <p class="text-sm text-gray-500">Antrian saat ini</p>
-        <p class="text-3xl font-bold mb-2" id="antrianUmum">A-05</p>
-        <p class="text-sm text-gray-500">Total: <span class="font-bold">15</span> pasien</p>
-        <p class="text-sm text-gray-500">Dokter: dr. Andi Pratama</p>
+    <!-- Total Card -->
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+      <div class="bg-white p-5 rounded-xl shadow border-l-4 border-teal-600">
+        <h3 class="font-bold text-sm text-teal-700 mb-1">TOTAL HARI INI</h3>
+        <p class="text-3xl font-bold" id="totalSemua">0</p>
+        <p class="text-xs text-gray-500">Semua poli</p>
       </div>
 
-      <!-- Poli Gigi -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h3 class="font-bold text-lg mb-3 text-blue-600"><i class="fa-solid fa-tooth"></i> Poli Gigi</h3>
-        <p class="text-sm text-gray-500">Antrian saat ini</p>
-        <p class="text-3xl font-bold mb-2" id="antrianGigi">G-02</p>
-        <p class="text-sm text-gray-500">Total: <span class="font-bold">7</span> pasien</p>
-        <p class="text-sm text-gray-500">Dokter: drg. Sinta Lestari</p>
+      <div class="bg-white p-5 rounded-xl shadow">
+        <h3 class="font-bold text-sm text-teal-700 mb-1">POLI UMUM</h3>
+        <p class="text-2xl font-bold" id="totalUmum">0</p>
+        <p class="text-xs text-gray-500">Menunggu: <span id="menungguUmum">0</span></p>
       </div>
 
-      <!-- Poli KIA -->
-      <div class="bg-white p-6 rounded-xl shadow">
-        <h3 class="font-bold text-lg mb-3 text-pink-600"><i class="fa-solid fa-baby"></i> KIA / KB</h3>
-        <p class="text-sm text-gray-500">Antrian saat ini</p>
-        <p class="text-3xl font-bold mb-2" id="antrianKIA">K-03</p>
-        <p class="text-sm text-gray-500">Total: <span class="font-bold">5</span> pasien</p>
-        <p class="text-sm text-gray-500">Bidan: Bd. Ratna Dewi</p>
+      <div class="bg-white p-5 rounded-xl shadow">
+        <h3 class="font-bold text-sm text-blue-600 mb-1">POLI GIGI</h3>
+        <p class="text-2xl font-bold" id="totalGigi">0</p>
+        <p class="text-xs text-gray-500">Menunggu: <span id="menungguGigi">0</span></p>
+      </div>
+
+      <div class="bg-white p-5 rounded-xl shadow">
+        <h3 class="font-bold text-sm text-pink-600 mb-1">KIA / ANAK</h3>
+        <p class="text-2xl font-bold" id="totalKIA">0</p>
+        <p class="text-xs text-gray-500">Menunggu: <span id="menungguKIA">0</span></p>
+      </div>
+    </div>
+
+    <!-- Antrian Sekarang -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
+      <div class="bg-teal-50 p-4 rounded-xl">
+        <p class="text-sm text-gray-600">Dipanggil Poli Umum</p>
+        <p class="text-2xl font-bold text-teal-700" id="dipanggilUmum">-</p>
+      </div>
+      <div class="bg-blue-50 p-4 rounded-xl">
+        <p class="text-sm text-gray-600">Dipanggil Poli Gigi</p>
+        <p class="text-2xl font-bold text-blue-700" id="dipanggilGigi">-</p>
+      </div>
+      <div class="bg-pink-50 p-4 rounded-xl">
+        <p class="text-sm text-gray-600">Dipanggil KIA/Anak</p>
+        <p class="text-2xl font-bold text-pink-700" id="dipanggilKIA">-</p>
       </div>
     </div>
 
     <div class="bg-white p-6 rounded-xl shadow">
-      <h3 class="font-bold text-lg mb-4">Menu Cepat</h3>
-      <div class="flex gap-3 flex-wrap mb-4">
-        <select id="pilihPoli" class="border border-gray-300 rounded-lg px-3 py-2 text-sm">
-          <option value="Umum">Poli Umum</option>
-          <option value="Gigi">Poli Gigi</option>
-          <option value="KIA">KIA / KB</option>
-        </select>
-        <button onclick="panggilAntrian()" class="bg-teal-600 hover:bg-teal-700 text-white px-4 py-2 rounded-lg text-sm">
-          <i class="fa-solid fa-bullhorn"></i> Panggil Antrian
-        </button>
-        <button onclick="jedaLayanan()" class="bg-amber-500 hover:bg-amber-600 text-white px-4 py-2 rounded-lg text-sm">
-          <i class="fa-solid fa-pause"></i> Jeda Layanan
-        </button>
-        <button onclick="cetakLaporan()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
-          <i class="fa-solid fa-print"></i> Cetak Laporan
-        </button>
-      </div>
-      <div id="statusLayanan" class="text-sm font-medium text-green-600">Status: Layanan Aktif</div>
+      <h3 class="font-bold text-lg mb-4">Info Data</h3>
+      <div id="statusLoad" class="text-sm text-gray-500 mb-3">Terakhir update: -</div>
+      <button onclick="cetakLaporan()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-sm">
+        <i class="fa-solid fa-print"></i> Cetak Laporan Hari Ini
+      </button>
     </div>
   </main>
 
 <script>
-let antrian = { Umum: 5, Gigi: 2, KIA: 3 };
-let layananAktif = true;
+const SHEET_CSV_URL = 'PASTE_LINK_CSV_DISINI'; // <- GANTI INI
 
-function updateTampilan() {
-  document.getElementById('antrianUmum').innerText = 'A-' + String(antrian.Umum).padStart(2, '0');
-  document.getElementById('antrianGigi').innerText = 'G-' + String(antrian.Gigi).padStart(2, '0');
-  document.getElementById('antrianKIA').innerText = 'K-' + String(antrian.KIA).padStart(2, '0');
-}
+async function loadData() {
+  document.getElementById('statusLoad').innerText = 'Mengambil data...';
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    const csv = await res.text();
+    const rows = csv.split('\n').slice(1); // skip header
 
-function panggilAntrian() {
-  if (!layananAktif) {
-    alert('Layanan sedang dijeda! Aktifkan dulu.');
-    return;
-  }
-  const poli = document.getElementById('pilihPoli').value;
-  antrian[poli]++;
-  updateTampilan();
-  alert('Memanggil antrian: ' + document.getElementById('antrian' + poli).innerText);
-}
+    let data = { Umum: [], Gigi: [], KIA: [] };
+    let dipanggil = { Umum: '-', Gigi: '-', KIA: '-' };
 
-function jedaLayanan() {
-  layananAktif =!layananAktif;
-  const status = document.getElementById('statusLayanan');
-  if (layananAktif) {
-    status.innerText = 'Status: Layanan Aktif';
-    status.className = 'text-sm font-medium text-green-600';
-  } else {
-    status.innerText = 'Status: Layanan Dijeda';
-    status.className = 'text-sm font-medium text-red-600';
+    rows.forEach(row => {
+      if (!row.trim()) return;
+      const cols = row.split(',');
+      // Kolom: 0=Timestamp, 1=No, 2=No_Antrian, 3=Nama, 4=Poli, 5=No_HP, 6=Status, 7=Loket, 8=Dipanggil_Jam, 9=Petugas
+      const noAntrian = cols?.trim() || '';
+      const poli = cols?.trim() || '';
+      const status = cols?.trim().toLowerCase() || '';
+
+      if (poli.includes('Umum')) {
+        data.Umum.push(status);
+        if (status === 'dipanggil') dipanggil.Umum = noAntrian;
+      }
+      else if (poli.includes('Gigi')) {
+        data.Gigi.push(status);
+        if (status === 'dipanggil') dipanggil.Gigi = noAntrian;
+      }
+      // Poli Anak masuk ke KIA
+      else if (poli.includes('KIA') || poli.includes('KB') || poli.includes('Anak')) {
+        data.KIA.push(status);
+        if (status === 'dipanggil') dipanggil.KIA = noAntrian;
+      }
+    });
+
+    // Update Total
+    document.getElementById('totalUmum').innerText = data.Umum.length;
+    document.getElementById('totalGigi').innerText = data.Gigi.length;
+    document.getElementById('totalKIA').innerText = data.KIA.length;
+    document.getElementById('totalSemua').innerText = data.Umum.length + data.Gigi.length + data.KIA.length;
+
+    // Update Menunggu
+    document.getElementById('menungguUmum').innerText = data.Umum.filter(s => s === 'menunggu').length;
+    document.getElementById('menungguGigi').innerText = data.Gigi.filter(s => s === 'menunggu').length;
+    document.getElementById('menungguKIA').innerText = data.KIA.filter(s => s === 'menunggu').length;
+
+    // Update Dipanggil
+    document.getElementById('dipanggilUmum').innerText = dipanggil.Umum;
+    document.getElementById('dipanggilGigi').innerText = dipanggil.Gigi;
+    document.getElementById('dipanggilKIA').innerText = dipanggil.KIA;
+
+    document.getElementById('statusLoad').innerText = 'Terakhir update: ' + new Date().toLocaleTimeString('id-ID');
+  } catch (e) {
+    document.getElementById('statusLoad').innerText = 'Gagal load. Pastikan Sheet sudah di-publish!';
+    console.error(e);
   }
 }
 
 function cetakLaporan() {
   window.print();
 }
+
+loadData();
+setInterval(loadData, 20000);
 </script>
 </body>
 </html>
