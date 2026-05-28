@@ -128,7 +128,7 @@
         </button>
 
         <div class="text-center text-sm text-gray-600">
-          Belum punya akun? <a href="daftar.html" class="text-teal-600 font-medium hover:underline">Daftar di sini</a>
+          Belum punya akun? <a href="register.html" class="text-teal-600 hover:underline font-semibold">Daftar di sini</a>
         </div>
         <div class="text-center">
           <a href="index.html" class="text-sm text-gray-500 hover:text-teal-600"><i class="fa-solid fa-arrow-left"></i> Kembali ke Beranda</a>
@@ -160,7 +160,7 @@ allRoleRadios.forEach(radio => {
     }
   });
 });
-// Form submit - udah aku benerin biar bisa pindah halaman
+// Form submit - 
 document.getElementById('loginForm').addEventListener('submit', function(e) {
   e.preventDefault();
   const role = document.querySelector('input[name="role"]:checked').value;
@@ -170,11 +170,11 @@ document.getElementById('loginForm').addEventListener('submit', function(e) {
       alert('Kode Admin salah! Hubungi Kepala Puskesmas.');
       return;
     }
-    window.location.href = 'dashboard-admin.html'; // <- udah aktif
+    window.location.href = 'dashboard-admin.html'; 
   } else {
-    window.location.href = 'antrian.html'; // <- ini juga aktif
+    window.location.href = 'antrian.html'; 
   }
 });
 </script>
 </body>
-</html> coba kamu cek udah bener blm?
+</html> 
